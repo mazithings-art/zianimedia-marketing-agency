@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ziani Media: creative agency voor short form content marketing</title>
+<meta name="description" content="Ziani Media is een creative agency uit Roosendaal, gespecialiseerd in short form content marketing: korte video's die zichtbaarheid, omzet en klanten opleveren. Ook grafisch ontwerp, webdesign & webshops, losse video's, drone-beelden en AI-systemen, in Nederland en daarbuiten.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fcfdff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0f1a">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/logo/favicon-180.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/logo/favicon-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     ZIANI MEDIA — token system
+     Primary: #6dbcff (huisstijl-blauw, aangeleverd)
+     Accenten: warme koraal (energie/aandacht) + frisse lime (resultaat/positief)
+     Kop-typografie: Big Shoulders Display — condensed, staat, geeft dezelfde
+       "korte, krachtige caption"-energie als tekst in een Reel/TikTok.
+     Lopende tekst: Plus Jakarta Sans — rustig en zeer leesbaar, houdt de
+       pagina toegankelijk terwijl de koppen het karakter leveren.
+     ============================================================ */
+  :root{
+    color-scheme: light dark;
+    --font-display: "Big Shoulders Display", sans-serif;
+    --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+
+    --color-ink: #12182b;
+    --color-ink-soft: #4b5568;
+    --color-bg: #fcfdff;
+    --color-surface: #ffffff;
+    --color-surface-alt: #eef5fd;
+    --color-border: #dfe9f6;
+
+    --color-primary: #6dbcff;      /* huisstijlblauw — accenten, achtergronden */
+    --color-primary-text: #1a5a9e; /* zelfde familie, voldoende contrast als tekst/link op wit */
+    --color-coral: #ff7a59;
+    --color-coral-text: #c9502c;
+    --color-lime: #b7e24a;
+    --color-lime-text: #5f7d16;
+
+    --shadow-sm: 0 1px 2px rgba(18,24,43,.06), 0 1px 1px rgba(18,24,43,.04);
+    --shadow-md: 0 12px 28px -12px rgba(18,24,43,.18);
+    --shadow-lg: 0 24px 48px -16px rgba(18,24,43,.22);
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+
+    --space-3xs: .25rem;
+    --space-2xs: .5rem;
+    --space-xs: .75rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2.5rem;
+    --space-xl: 4rem;
+    --space-2xl: 6rem;
+    --space-3xl: 8rem;
+
+    --container: 1180px;
+    --ease: cubic-bezier(.16,.84,.44,1);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --color-ink: #f2f6fb;
+      --color-ink-soft: #adbaCf;
+      --color-bg: #0b0f1a;
+      --color-surface: #131a2b;
+      --color-surface-alt: #182236;
+      --color-border: rgba(255,255,255,.09);
+      --color-primary-text: #8fcdff;
+      --color-coral-text: #ff9a7c;
+      --color-lime-text: #cdea86;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+      --shadow-md: 0 16px 32px -14px rgba(0,0,0,.55);
+      --shadow-lg: 0 28px 56px -18px rgba(0,0,0,.6);
+    }
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+  body{
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img, svg{ display:block; max-width:100%; }
+
+  /* ---------- pagina-brede achtergrond: vaste, langzaam bewegende kleurvlekken ----------
+     Geblurde radial gradients in blauwtinten (met een vleugje koraal/lime voor diepte),
+     position:fixed zodat ze op hun plek blijven terwijl de pagina scrollt — puur decoratief,
+     zit achter alle content (z-index:-1) en negeert klikken (pointer-events:none). Secties
+     met een eigen band-achtergrond (.services/.compare/.cases/.pricing) zijn daarom licht
+     doorzichtig gemaakt zodat het effect er subtiel doorheen blijft schemeren. */
+  .site-bg{ position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+  .site-blob{ position:absolute; border-radius:50%; filter: blur(70px); will-change: transform; }
+  .site-blob-1{
+    width:38vw; height:38vw; min-width:340px; min-height:340px; left:-6%; top:-10%;
+    background: radial-gradient(circle at 30% 30%, #a9d8ff, var(--color-primary) 60%, transparent 75%);
+    opacity:.5; animation: site-blob-float-1 26s var(--ease) infinite alternate;
+  }
+  .site-blob-2{
+    width:32vw; height:32vw; min-width:300px; min-height:300px; right:-4%; top:0%;
+    background: radial-gradient(circle at 40% 40%, var(--color-primary-text), #1a5a9e 55%, transparent 75%);
+    opacity:.38; animation: site-blob-float-2 32s var(--ease) infinite alternate;
+  }
+  .site-blob-3{
+    width:28vw; height:28vw; min-width:240px; min-height:240px; left:20%; bottom:-14%;
+    background: radial-gradient(circle at 50% 50%, var(--color-coral), transparent 75%);
+    opacity:.2; animation: site-blob-float-3 22s var(--ease) infinite alternate;
+  }
+  .site-blob-4{
+    width:24vw; height:24vw; min-width:200px; min-height:200px; right:12%; bottom:-8%;
+    background: radial-gradient(circle at 50% 50%, var(--color-lime), transparent 75%);
+    opacity:.16; animation: site-blob-float-4 28s var(--ease) infinite alternate;
+  }
+  @keyframes site-blob-float-1{ from{ transform: translate(0,0) scale(1); } to{ transform: translate(6%, 8%) scale(1.12); } }
+  @keyframes site-blob-float-2{ from{ transform: translate(0,0) scale(1); } to{ transform: translate(-8%, 6%) scale(0.92); } }
+  @keyframes site-blob-float-3{ from{ transform: translate(0,0) scale(1); } to{ transform: translate(5%, -6%) scale(1.08); } }
+  @keyframes site-blob-float-4{ from{ transform: translate(0,0) scale(1); } to{ transform: translate(-6%, -4%) scale(1.15); } }
+
+  a{ color: var(--color-primary-text); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+  ul{ margin:0; padding:0; list-style:none; }
+  button{ font-family: inherit; }
+
+  :focus-visible{
+    outline: 3px solid var(--color-primary-text);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .skip-link{
+    position:absolute; left:-999px; top:auto;
+    background: var(--color-ink); color:#fff; padding: .75rem 1.25rem;
+    border-radius: var(--radius-sm); z-index: 200;
+  }
+  .skip-link:focus{ left: var(--space-sm); top: var(--space-sm); }
+
+  .container{
+    width:100%;
+    max-width: var(--container);
+    margin-inline:auto;
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  h1,h2,h3,h4{
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.02;
+    margin: 0;
+    letter-spacing: .01em;
+  }
+  h1{ font-size: clamp(2.6rem, 6.2vw, 4.6rem); }
+  h2{ font-size: clamp(2rem, 4.4vw, 3rem); }
+  h3{ font-family: var(--font-body); font-weight: 700; font-size: 1.15rem; letter-spacing: normal; line-height:1.3; }
+  p{ margin: 0; color: var(--color-ink-soft); max-width: 38rem; }
+  .lede{ font-size: 1.15rem; line-height:1.55; }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:.5rem;
+    font-weight:700; font-size:.95rem; color: var(--color-primary-text);
+    margin-bottom: var(--space-xs);
+  }
+  .eyebrow svg{ width:1.1em; height:1.1em; }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+    padding: .9rem 1.6rem;
+    border-radius: var(--radius-pill);
+    font-weight: 700; font-size: 1rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform .18s var(--ease), box-shadow .18s var(--ease), background-color .18s var(--ease);
+    text-decoration:none;
+    white-space: nowrap;
+  }
+  .btn:hover{ transform: translateY(-2px); text-decoration:none; }
+  .btn-primary{ background: var(--color-primary); color: var(--color-ink); box-shadow: var(--shadow-md); }
+  .btn-primary:hover{ box-shadow: var(--shadow-lg); }
+  .btn-ghost{ background: transparent; border-color: var(--color-border); color: var(--color-ink); }
+  .btn-ghost:hover{ border-color: var(--color-primary-text); }
+  .btn-block{ width:100%; }
+
+  /* ---------- header / nav ---------- */
+  .site-header{
+    position: sticky; top:0; z-index: 100;
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-block: .85rem;
+  }
+  .brand{ display:flex; align-items:center; gap:.6rem; font-family: var(--font-display); font-weight:700; font-size:1.4rem; color: var(--color-ink); }
+  .brand:hover{ text-decoration:none; }
+  .brand-logo{ height:34px; width:auto; display:block; }
+  .brand-logo.footer-logo{ height:40px; }
+
+  .nav-links{ display:flex; align-items:center; gap: var(--space-lg); }
+  .nav-links a{ color: var(--color-ink-soft); font-weight:600; }
+  .nav-links a:hover{ color: var(--color-ink); }
+  .nav-actions{ display:flex; align-items:center; gap: var(--space-md); }
+  .nav-toggle{
+    display:none; background:none; border:none; padding:.4rem; cursor:pointer;
+    color: var(--color-ink);
+  }
+  .nav-toggle svg{ width:26px; height:26px; }
+
+  @media (max-width: 860px){
+    .nav-links{
+      position:fixed; top:64px; right:0; left:0; background: var(--color-bg);
+      height: calc(100vh - 64px); height: calc(100dvh - 64px);
+      flex-direction:column; justify-content:flex-start; align-items:flex-start;
+      padding: var(--space-lg) var(--space-md); gap: var(--space-md);
+      transform: translateX(100%); transition: transform .28s var(--ease);
+      border-top: 1px solid var(--color-border);
+      overflow-y: auto;
+    }
+    .nav-links[data-open="true"]{ transform: translateX(0); }
+    .nav-links a{ font-size:1.2rem; }
+    .nav-actions .btn-ghost{ display:none; }
+    .nav-toggle{ display:inline-flex; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{ padding-block: var(--space-2xl) var(--space-xl); overflow:hidden; }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.1fr .9fr; gap: var(--space-xl); align-items:center;
+  }
+  .hero-copy p{ margin-block-start: var(--space-md); }
+  .hero-ctas{ display:flex; flex-wrap:wrap; gap: var(--space-sm); margin-block-start: var(--space-lg); }
+  .hero-note{ display:flex; align-items:center; gap:.6rem; margin-block-start: var(--space-lg); font-size:.95rem; color: var(--color-ink-soft); }
+  .hero-note svg{ width:1.2em; height:1.2em; color: var(--color-lime-text); flex-shrink:0; }
+
+  /* stacked vertical-video mockup — decorative, ties visually to the product (short vertical video) */
+  .reel-stack{ position:relative; height: 460px; margin-block-end: 10rem; }
+  .reel-card{
+    position:absolute; width: 52%; aspect-ratio: 9/16;
+    border-radius: 28px; box-shadow: var(--shadow-lg);
+    border: 6px solid var(--color-surface);
+    overflow: hidden;
+    color:#12182b;
+    opacity:0; transform: translateY(24px) rotate(0deg);
+    animation: reel-in .7s var(--ease) forwards;
+  }
+  .reel-card video{ width:100%; height:100%; object-fit: cover; display:block; }
+  /* Fanned, staircase layout: each card is offset by less than its own width, so a
+     clear ~40% slice of every card (not just the frontmost) stays uncovered. */
+  .reel-card:nth-of-type(1){ left:0; top:22%; background: linear-gradient(160deg, var(--color-primary), #a9d8ff); transform-origin:bottom left; animation-delay:.05s; z-index:1; }
+  .reel-card:nth-of-type(2){ left:22%; top:11%; background: linear-gradient(160deg, var(--color-coral), #ffb199); transform-origin:bottom left; animation-delay:.18s; z-index:2; }
+  .reel-card:nth-of-type(3){ left:44%; top:0; background: linear-gradient(160deg, var(--color-lime), #dcf29c); transform-origin:bottom left; animation-delay:.3s; z-index:3; }
+  @keyframes reel-in{
+    from{ opacity:0; transform: translateY(28px) rotate(0deg); }
+    to{ opacity:1; transform: translateY(0) rotate(var(--rot, 0deg)); }
+  }
+  .reel-card:nth-of-type(1){ --rot: -4deg; }
+  .reel-card:nth-of-type(2){ --rot: 2deg; }
+  .reel-card:nth-of-type(3){ --rot: -2deg; }
+  .reel-caption{ text-align:center; font-size:.9rem; color: var(--color-ink-soft); margin-block-start: var(--space-md); }
+
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .reel-stack{ height: 340px; margin-inline:auto; max-width:320px; }
+  }
+
+  /* ---------- trust bar: scrolling client-logo marquee ---------- */
+  .trust-bar{ padding-block: var(--space-lg); border-block: 1px solid var(--color-border); }
+  .trust-bar-label{ text-align:center; font-size:.9rem; font-weight:600; color: var(--color-ink-soft); margin-block-end: var(--space-md); margin-inline:auto; max-width:none; }
+  .marquee{
+    position:relative; overflow:hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track{
+    display:flex; align-items:center; width:max-content;
+    gap: var(--space-2xl);
+    animation: marquee-scroll 42s linear infinite;
+  }
+  .marquee:hover .marquee-track{ animation-play-state: paused; }
+  /* Fixed light chip behind every logo, independent of site theme: third-party brand
+     marks (esp. thin/light linework logos) need a predictable light backdrop to stay
+     legible in dark mode, rather than inheriting the page's own (dark, in dark mode)
+     surface color. */
+  .logo-chip{
+    display:flex; align-items:center; justify-content:center;
+    background:#fff; border-radius: var(--radius-sm);
+    padding: .6rem 1.1rem; flex-shrink:0;
+    box-shadow: var(--shadow-sm);
+  }
+  .marquee-track img{
+    height: 28px; width:auto; max-width:120px; object-fit:contain;
+    opacity:.8; filter: grayscale(1);
+    transition: opacity .2s var(--ease), filter .2s var(--ease);
+  }
+  .logo-chip:hover img{ opacity:1; filter:grayscale(0); }
+  @keyframes marquee-scroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  @media (max-width:700px){
+    .marquee-track{ gap: var(--space-md); }
+    .logo-chip{ padding:.5rem .8rem; }
+    .marquee-track img{ height:22px; max-width:92px; }
+  }
+
+  /* ---------- services strip ---------- */
+  .services{ padding-block: var(--space-xl); background: color-mix(in srgb, var(--color-surface-alt) 88%, transparent); border-block: 1px solid var(--color-border); }
+  .services-head{ max-width: 42rem; margin-inline:auto; text-align:center; margin-block-end: var(--space-lg); }
+  .services-head h2{ margin-block-end: var(--space-sm); }
+  .services-grid{
+    display:grid; grid-template-columns: repeat(3, minmax(0, 280px));
+    justify-content:center;
+    gap: var(--space-md);
+  }
+  @media (max-width:760px){
+    .services-grid{ grid-template-columns: minmax(0, 340px); }
+  }
+  .service-chip{
+    background: var(--color-surface); border:1px solid var(--color-border);
+    border-radius: var(--radius-md); padding: var(--space-md);
+    transition: transform .18s var(--ease), box-shadow .18s var(--ease);
+  }
+  .service-chip:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .service-chip .icon{
+    width:44px; height:44px; border-radius: var(--radius-sm); display:flex; align-items:center; justify-content:center;
+    margin-block-end: var(--space-sm);
+  }
+  .service-chip .icon svg{ width:22px; height:22px; }
+  .service-chip p{ margin-block-start:.4rem; font-size:.95rem; }
+  .icon.tone-primary{ background: color-mix(in srgb, var(--color-primary) 25%, var(--color-surface)); color: var(--color-primary-text); }
+  .icon.tone-coral{ background: color-mix(in srgb, var(--color-coral) 25%, var(--color-surface)); color: var(--color-coral-text); }
+  .icon.tone-lime{ background: color-mix(in srgb, var(--color-lime) 30%, var(--color-surface)); color: var(--color-lime-text); }
+
+  /* ---------- proof / stats ---------- */
+  .proof{ padding-block: var(--space-2xl); }
+  .proof-regions{ text-align:center; margin-block-end: var(--space-xl); }
+  .proof-regions p{ margin-inline:auto; }
+  .region-list{ display:flex; flex-wrap:wrap; justify-content:center; gap: var(--space-2xs); margin-block-start: var(--space-md); }
+  .region-list li{
+    padding: .5rem 1rem; border-radius: var(--radius-pill); background: var(--color-surface-alt);
+    border:1px solid var(--color-border); font-size:.9rem; font-weight:600; color: var(--color-ink-soft);
+  }
+  .stat-bar{ display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-lg); }
+  .stat{ text-align:center; }
+  .stat strong{ display:block; font-family: var(--font-display); font-size: clamp(2.4rem,5vw,3.4rem); color: var(--color-ink); }
+  .stat span{ display:block; color: var(--color-ink-soft); font-size:.95rem; margin-block-start:.25rem; }
+  .stat small{ display:block; font-size:.75rem; color: var(--color-ink-soft); opacity:.7; margin-block-start:.35rem; }
+  @media (max-width:700px){ .stat-bar{ grid-template-columns:1fr; gap: var(--space-md); } }
+
+  /* ---------- problem / solution ---------- */
+  .compare{ padding-block: var(--space-2xl); background: color-mix(in srgb, var(--color-surface-alt) 88%, transparent); border-block:1px solid var(--color-border); }
+  .compare-head{ max-width: 46rem; margin-block-end: var(--space-xl); }
+  .compare-head h2{ margin-block-end: var(--space-sm); }
+  .compare-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); align-items:stretch; }
+  .compare-col{ background: var(--color-surface); border:1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-lg); }
+  .compare-col.old{ border-top: 5px solid var(--color-coral); }
+  .compare-col.new{ border-top: 5px solid var(--color-lime); }
+  .compare-col h3{ font-family: var(--font-display); font-size:1.5rem; margin-block-end: var(--space-md); }
+  .compare-col ul{ display:flex; flex-direction:column; gap: var(--space-sm); }
+  .compare-col li{ display:flex; gap:.75rem; align-items:flex-start; color: var(--color-ink-soft); }
+  .compare-col li svg{ width:1.3em; height:1.3em; flex-shrink:0; margin-block-start:.1em; }
+  .compare-col.old li svg{ color: var(--color-coral-text); }
+  .compare-col.new li svg{ color: var(--color-lime-text); }
+  @media (max-width:760px){ .compare-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- process ---------- */
+  .process{ padding-block: var(--space-2xl); }
+  .process-head{ max-width: 42rem; margin-block-end: var(--space-xl); }
+  .steps{ display:grid; grid-template-columns: repeat(4,1fr); gap: var(--space-md); position:relative; list-style:none; margin:0; padding:0; }
+  .steps::before{
+    content:""; position:absolute; top:26px; left:5%; right:5%; height:2px;
+    background: var(--color-border); z-index:0;
+  }
+  .step{ position:relative; z-index:1; }
+  .step-num{
+    width:52px; height:52px; border-radius:50%; background: var(--color-surface);
+    border:2px solid var(--color-primary); color: var(--color-primary-text);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-display); font-weight:700; font-size:1.3rem;
+    margin-block-end: var(--space-sm);
+  }
+  .step h3{ margin-block-end:.4rem; }
+  @media (max-width:900px){
+    .steps{ grid-template-columns: 1fr; gap: var(--space-lg); }
+    .steps::before{ display:none; }
+  }
+
+  /* ---------- cases ---------- */
+  .cases{ padding-block: var(--space-2xl); background: color-mix(in srgb, var(--color-surface-alt) 88%, transparent); border-block:1px solid var(--color-border); }
+  .cases-head{ max-width: 46rem; margin-inline:auto; margin-block-end: var(--space-xl); text-align:center; }
+  .cases-head p{ margin-inline:auto; } /* globale p{max-width:38rem} zonder auto-marge blijft anders links hangen */
+  .case-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-lg); }
+  .case-card{ background: var(--color-surface); border:1px solid var(--color-border); border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--shadow-sm); }
+  .case-thumb{
+    aspect-ratio: 9/13; display:flex; align-items:center; justify-content:center;
+    color: rgba(18,24,43,.55); font-weight:700; font-size:.85rem; text-align:center; padding: var(--space-md);
+  }
+  .case-thumb video{ width:100%; height:100%; object-fit: cover; display:block; background:#000; }
+  /* When a viewer opens the native fullscreen player, show the original frame in full
+     (letterboxed) instead of the cropped "cover" version used inside the small card. */
+  .case-thumb video:fullscreen{ object-fit: contain; width:100%; height:100%; background:#000; }
+  .case-thumb video:-webkit-full-screen{ object-fit: contain; width:100%; height:100%; background:#000; }
+  .case-card:nth-of-type(1) .case-thumb{ background: linear-gradient(160deg, color-mix(in srgb, var(--color-primary) 55%, var(--color-surface)), var(--color-surface)); }
+  .case-card:nth-of-type(2) .case-thumb{ background: linear-gradient(160deg, color-mix(in srgb, var(--color-coral) 45%, var(--color-surface)), var(--color-surface)); }
+  .case-card:nth-of-type(3) .case-thumb{ background: linear-gradient(160deg, color-mix(in srgb, var(--color-lime) 50%, var(--color-surface)), var(--color-surface)); }
+  .case-body{ padding: var(--space-md); }
+  .case-tag{ display:inline-block; font-size:.75rem; font-weight:700; color: var(--color-ink-soft); background: var(--color-surface-alt); border:1px solid var(--color-border); padding:.2rem .6rem; border-radius: var(--radius-pill); margin-block-end: var(--space-sm); }
+  .case-body h3{ font-family: var(--font-display); font-size:1.3rem; margin-block-end:.3rem; }
+  .case-result{ font-weight:700; color: var(--color-primary-text); margin-block-end:.4rem; display:block; }
+  .case-body p{ font-size:.92rem; }
+  @media (max-width:900px){ .case-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews (template placeholders — clearly not real yet) ---------- */
+  .reviews{ padding-block: var(--space-2xl); }
+  .reviews-head{ max-width: 42rem; margin-block-end: var(--space-xl); }
+  .review-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-lg); }
+  .review-card{
+    background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+    padding: var(--space-lg); display:flex; flex-direction:column; gap: var(--space-md);
+  }
+  .review-stars{ display:flex; gap:.2rem; color: var(--color-lime-text); }
+  .review-stars svg{ width:18px; height:18px; }
+  .review-quote{ font-style:italic; color: var(--color-ink-soft); flex-grow:1; }
+  .review-who{ font-size:.85rem; font-weight:700; color: var(--color-ink-soft); }
+  @media (max-width:900px){ .review-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- pricing ---------- */
+  .pricing{ padding-block: var(--space-2xl); background: color-mix(in srgb, var(--color-surface-alt) 88%, transparent); border-block:1px solid var(--color-border); }
+  .pricing-head{ max-width: 42rem; margin-block-end: var(--space-xl); }
+  .price-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-lg); align-items:start; }
+  .price-card{
+    position:relative; overflow:hidden;
+    background: var(--color-surface); border:1px solid var(--color-border); border-radius: var(--radius-lg);
+    padding: var(--space-lg); display:flex; flex-direction:column; height:100%;
+    transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  /* Elke pakket-kaart krijgt een eigen accentkleur (top-balk + kicker + vinkjes + knop) zodat de
+     3 pakketten in één oogopslag van elkaar te onderscheiden zijn, ook zonder de tekst te lezen. */
+  .price-card::before{ content:""; position:absolute; inset:0 0 auto 0; height:6px; background: var(--color-border); }
+  .price-card .price-kicker{ display:inline-block; font-size:.78rem; font-weight:700; letter-spacing:.02em; margin-block-end: var(--space-2xs); }
+  .price-card.tone-lime::before{ background: linear-gradient(90deg, var(--color-lime), color-mix(in srgb, var(--color-lime) 55%, var(--color-primary))); }
+  .price-card.tone-lime{ background: linear-gradient(180deg, color-mix(in srgb, var(--color-lime) 9%, var(--color-surface)), var(--color-surface) 45%); }
+  .price-card.tone-lime .price-kicker{ color: var(--color-lime-text); }
+  .price-card.tone-lime li svg{ color: var(--color-lime-text); }
+  .price-card.tone-lime .btn-ghost{ border-color: color-mix(in srgb, var(--color-lime-text) 45%, var(--color-border)); color: var(--color-lime-text); }
+  .price-card.tone-lime .btn-ghost:hover{ background: color-mix(in srgb, var(--color-lime) 16%, transparent); border-color: var(--color-lime-text); }
+  .price-card.tone-coral::before{ background: linear-gradient(90deg, var(--color-coral), color-mix(in srgb, var(--color-coral) 55%, var(--color-primary))); }
+  .price-card.tone-coral{ background: linear-gradient(180deg, color-mix(in srgb, var(--color-coral) 9%, var(--color-surface)), var(--color-surface) 45%); }
+  .price-card.tone-coral .price-kicker{ color: var(--color-coral-text); }
+  .price-card.tone-coral li svg{ color: var(--color-coral-text); }
+  .price-card.tone-coral .btn-ghost{ border-color: color-mix(in srgb, var(--color-coral-text) 45%, var(--color-border)); color: var(--color-coral-text); }
+  .price-card.tone-coral .btn-ghost:hover{ background: color-mix(in srgb, var(--color-coral) 16%, transparent); border-color: var(--color-coral-text); }
+  .price-card.featured{
+    border:2px solid var(--color-primary); box-shadow: var(--shadow-lg); transform: translateY(-8px);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-primary) 13%, var(--color-surface)), var(--color-surface) 45%);
+  }
+  .price-card.featured::before{ height:8px; background: linear-gradient(90deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 55%, var(--color-coral))); }
+  .price-card.featured .price-kicker{ color: var(--color-primary-text); }
+  .price-card.featured li svg{ color: var(--color-primary-text); }
+  .price-card.featured:hover{ transform: translateY(-10px); }
+  .price-badge{ align-self:flex-start; font-size:.8rem; font-weight:700; color: var(--color-ink); background: var(--color-primary); padding:.25rem .7rem; border-radius: var(--radius-pill); margin-block-end: var(--space-sm); }
+  .price-card h3{ font-family: var(--font-display); font-size:1.6rem; }
+  .price-tag{ margin-block: var(--space-sm) var(--space-md); }
+  .price-tag .amount{ font-family: var(--font-display); font-size:1.9rem; }
+  .price-tag .period{ color: var(--color-ink-soft); font-size:.9rem; }
+  .price-card ul{ display:flex; flex-direction:column; gap: var(--space-xs); margin-block-end: var(--space-lg); flex-grow:1; }
+  .price-card li{ display:flex; gap:.6rem; align-items:flex-start; font-size:.92rem; color: var(--color-ink-soft); }
+  .price-card li svg{ width:1.2em; height:1.2em; color: var(--color-lime-text); flex-shrink:0; margin-block-start:.15em; }
+  @media (max-width:900px){ .price-grid{ grid-template-columns:1fr; } .price-card.featured{ transform:none; } .price-card.featured:hover{ transform:none; } }
+
+  /* ---------- social media planner (interactieve quiz) ---------- */
+  .planner{ padding-block: var(--space-2xl); }
+  .planner-head{ max-width: 42rem; margin-inline:auto; margin-block-end: var(--space-xl); text-align:center; }
+  .planner-head p{ margin-inline:auto; } /* de globale p{max-width:38rem} zonder auto-marge zou anders links blijven hangen */
+  .planner-head .eyebrow{ justify-content:center; }
+  .planner-app{ max-width: 46rem; margin-inline: auto; }
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  .planner-progress{ margin-block-end: var(--space-lg); }
+  .planner-progress-track{ height:6px; border-radius: var(--radius-pill); background: var(--color-border); overflow:hidden; }
+  .planner-progress-fill{
+    height:100%; width:0%; border-radius:inherit;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-coral));
+    transition: width .3s var(--ease);
+  }
+  .planner-progress-label{ font-size:.85rem; font-weight:700; color: var(--color-ink-soft); margin-block-start:.6rem; text-align:center; }
+
+  .planner-panel{ border:0; padding:0; margin:0; min-width:0; animation: planner-fade .35s var(--ease); }
+  @keyframes planner-fade{ from{ opacity:0; transform: translateY(10px); } to{ opacity:1; transform:none; } }
+  .planner-legend{
+    display:block; width:100%; padding:0; font-family: var(--font-display);
+    font-size: clamp(1.35rem, 3vw, 1.8rem); font-weight:700; letter-spacing:.01em;
+    margin-block-end: var(--space-md); color: var(--color-ink); text-align:center;
+  }
+  .planner-legend:focus-visible{ outline: 3px solid var(--color-primary-text); outline-offset:4px; border-radius:4px; }
+  .planner-field{ margin-block-end: var(--space-lg); }
+  .planner-field-label{ display:block; font-weight:700; font-size:.88rem; color: var(--color-ink-soft); margin-block-end: var(--space-sm); text-align:center; }
+
+  .planner-chip-grid{ display:flex; flex-wrap:wrap; justify-content:center; gap: var(--space-sm); }
+  .planner-input-hidden{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+  .planner-chip{
+    display:inline-flex; flex-direction:column; gap:.2rem; text-align:left;
+    padding: .8rem 1.15rem; border-radius: var(--radius-md); border:2px solid var(--color-border);
+    background: var(--color-surface); cursor:pointer; font-weight:700; font-size:.95rem; color: var(--color-ink);
+    transition: border-color .18s var(--ease), background-color .18s var(--ease), transform .18s var(--ease);
+  }
+  .planner-chip:hover{ border-color: var(--color-primary-text); transform: translateY(-2px); }
+  .planner-chip-hint{ font-weight:500; font-size:.8rem; color: var(--color-ink-soft); }
+  .planner-input-hidden:checked + .planner-chip{
+    border-color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 20%, var(--color-surface));
+    color: var(--color-primary-text);
+  }
+  .planner-input-hidden:focus-visible + .planner-chip{ outline: 3px solid var(--color-primary-text); outline-offset:3px; }
+
+  .planner-nav{ display:flex; justify-content:space-between; align-items:center; gap: var(--space-sm); margin-block-start: var(--space-lg); }
+  .planner-nav .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+
+  .planner-result{ animation: planner-fade .4s var(--ease); }
+  .planner-result-head{ margin-block: var(--space-lg); text-align:center; }
+  .planner-result-head h3{ font-family: var(--font-display); font-size: clamp(1.6rem,3.4vw,2.2rem); margin-block: var(--space-xs); }
+  .planner-result-head p{ margin-inline:auto; }
+  .planner-result-head .eyebrow{ justify-content:center; }
+  .planner-channel-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-md); margin-block-end: var(--space-xl); }
+  .planner-channel-card{ background: var(--color-surface); border:1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-md); }
+  .planner-channel-card .icon{
+    width:44px; height:44px; border-radius: var(--radius-sm); display:flex; align-items:center; justify-content:center;
+    margin-block-end: var(--space-sm);
+  }
+  .planner-channel-card .icon svg{ width:22px; height:22px; }
+  .planner-channel-card h3{ font-family: var(--font-body); font-size:1rem; }
+  .planner-channel-freq{ font-family: var(--font-display); font-size:1.5rem; margin-block:.15rem; color: var(--color-ink); }
+  .planner-channel-note{ font-size:.8rem; }
+  @media (max-width:760px){ .planner-channel-grid{ grid-template-columns:1fr; } }
+
+  .planner-compare{ margin-block-end: var(--space-xl); }
+  .planner-compare .compare-col li{ display:block; }
+
+  .planner-package{ max-width: 26rem; margin-inline:auto; margin-block-end: var(--space-xl); }
+  .planner-disclaimer{ font-size:.82rem; text-align:center; max-width:none; margin-block-end: var(--space-md); }
+  .planner-restart-wrap{ text-align:center; }
+
+  /* ---------- faq ---------- */
+  .faq{ padding-block: var(--space-2xl); padding-inline: clamp(1.25rem, 4vw, 2.5rem); max-width: 46rem; margin-inline:auto; }
+  .faq-head{ margin-block-end: var(--space-lg); }
+  .faq-item{ border-bottom:1px solid var(--color-border); }
+  .faq-item summary{
+    display:flex; align-items:center; justify-content:space-between; gap: var(--space-md);
+    padding-block: var(--space-md); font-weight:700; cursor:pointer; list-style:none;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item .faq-icon{ flex-shrink:0; width:22px; height:22px; position:relative; }
+  .faq-item .faq-icon::before, .faq-item .faq-icon::after{
+    content:""; position:absolute; background: var(--color-primary-text); border-radius:2px;
+    top:50%; left:50%; transform: translate(-50%,-50%);
+  }
+  .faq-item .faq-icon::before{ width:14px; height:2px; }
+  .faq-item .faq-icon::after{ width:2px; height:14px; transition: transform .2s var(--ease); }
+  .faq-item[open] .faq-icon::after{ transform: translate(-50%,-50%) rotate(90deg) scale(0); }
+  .faq-item p{ padding-block-end: var(--space-md); max-width:100%; }
+
+  /* ---------- contact ---------- */
+  .contact{ padding-block: var(--space-2xl); }
+  .contact-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items:start; }
+  .contact-info h2{ margin-block-end: var(--space-sm); }
+  .contact-details{ margin-block-start: var(--space-lg); display:flex; flex-direction:column; gap: var(--space-sm); }
+  .contact-details a{ color: var(--color-ink); font-weight:600; }
+  .contact-details .row{ display:flex; align-items:center; gap:.6rem; color: var(--color-ink-soft); }
+  .contact-details svg{ width:1.2em; height:1.2em; color: var(--color-primary-text); flex-shrink:0; }
+  form{ background: var(--color-surface); border:1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); display:flex; flex-direction:column; gap: var(--space-md); }
+  .field{ display:flex; flex-direction:column; gap:.4rem; }
+  .field label{ font-weight:700; font-size:.92rem; }
+  .field input, .field textarea{
+    font-family: inherit; font-size:1rem; padding: .8rem 1rem;
+    border:1px solid var(--color-border); border-radius: var(--radius-sm);
+    background: var(--color-bg); color: var(--color-ink);
+  }
+  .field textarea{ resize: vertical; min-height:120px; }
+  .form-note{ font-size:.85rem; color: var(--color-ink-soft); }
+  #form-status{ font-size:.92rem; font-weight:600; }
+  #form-status[data-state="success"]{ color: var(--color-lime-text); }
+
+  @media (max-width:860px){ .contact-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- footer ---------- */
+  .site-footer{ border-top:1px solid var(--color-border); padding-block: var(--space-xl) var(--space-lg); }
+  .footer-grid{ display:grid; grid-template-columns: 1.3fr 1fr 1fr; gap: var(--space-lg); margin-block-end: var(--space-lg); }
+  .footer-grid h4{ font-family: var(--font-body); font-weight:700; font-size:.95rem; margin-block-end: var(--space-sm); }
+  .footer-grid ul{ display:flex; flex-direction:column; gap:.6rem; }
+  .footer-grid a{ color: var(--color-ink-soft); }
+  .footer-grid a:hover{ color: var(--color-ink); }
+  .footer-bottom{ display:flex; flex-wrap:wrap; justify-content:space-between; gap: var(--space-sm); border-top:1px solid var(--color-border); padding-block-start: var(--space-md); font-size:.85rem; color: var(--color-ink-soft); }
+  @media (max-width:760px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+
+  section[id]{ scroll-margin-top: 90px; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reel-card{ animation:none !important; opacity:1 !important; transform:none !important; }
+    .btn:hover, .service-chip:hover{ transform:none; }
+    .marquee-track{ animation:none !important; }
+    .marquee{ overflow-x:auto; }
+    .planner-panel, .planner-result{ animation:none !important; }
+    .planner-chip:hover{ transform:none; }
+    .planner-progress-fill{ transition:none; }
+    .site-blob{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Ga naar inhoud</a>
+
+<div class="site-bg" aria-hidden="true">
+  <span class="site-blob site-blob-1"></span>
+  <span class="site-blob site-blob-2"></span>
+  <span class="site-blob site-blob-3"></span>
+  <span class="site-blob site-blob-4"></span>
+</div>
+
+<!-- Reusable SVG icon set — inline so the file stays fully self-contained (no icon-font/CDN dependency). -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="icon-check" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.9 6.3.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2L3 9.5l6.3-.6z" fill="currentColor"/></symbol>
+    <symbol id="icon-pin" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.1 7-11.3A7 7 0 105 9.7C5 14.9 12 21 12 21z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9.5" r="2.4" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-film" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-drone" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.2" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="6" r="2.2" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="18" r="2.2" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18" r="2.2" stroke="currentColor" stroke-width="2"/><path d="M8 6H16M8 18H16M6 8V16M18 8V16" stroke="currentColor" stroke-width="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-palette" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 100 18c1.1 0 2-.9 2-2 0-.6-.2-1-.5-1.4-.3-.4-.5-.8-.5-1.3 0-.9.7-1.6 1.6-1.6H16a5 5 0 005-5c0-3.9-4-6.7-9-6.7z" stroke="currentColor" stroke-width="1.8"/><circle cx="7.5" cy="10.5" r="1.2" fill="currentColor"/><circle cx="9.5" cy="7" r="1.2" fill="currentColor"/><circle cx="14" cy="7" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="icon-monitor" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-spark" viewBox="0 0 24 24" fill="none"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-badge" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.6 2.1 3.3-.4 1 3.2 2.9 1.6-1 3.2 1 3.2-2.9 1.6-1 3.2-3.3-.4L12 22l-2.6-2.1-3.3.4-1-3.2-2.9-1.6 1-3.2-1-3.2 2.9-1.6 1-3.2 3.3.4z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8a13 13 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20a1 1 0 01-1 1C11 21 3 13 3 4.7a1 1 0 011-1H7.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1z" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <!-- Generieke kanaal-pictogrammen voor de Social Media Planner. Bewust functioneel/
+         geometrisch (camera, noot, chatbubbel, netwerk-nodes, punaise) i.p.v. de officiële
+         merklogo's van Instagram/TikTok/Facebook/LinkedIn/Pinterest na te tekenen; het
+         kanaal staat er altijd ook als tekstlabel naast. -->
+    <symbol id="icon-ch-camera" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 7l1.5-2.5h5L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.5" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-ch-note" viewBox="0 0 24 24" fill="none"><path d="M9 17V5l10-2v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="17" r="2.5" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="15" r="2.5" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-ch-chat" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H9l-4 4v-4H4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-ch-network" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="7" r="2.2" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="7" r="2.2" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="18" r="2.2" stroke="currentColor" stroke-width="2"/><path d="M7.8 8.4L10.5 16M16.2 8.4L13.5 16M8 7H16" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="icon-ch-pin" viewBox="0 0 24 24" fill="none"><path d="M9 4h6l1 5-3 3v6l-1 2-1-2v-6l-3-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="#top" class="brand" aria-label="Ziani Media, naar boven">
+      <img class="brand-logo" src="assets/logo/ziani-media-logo.png" alt="Ziani Media">
+    </a>
+    <nav id="primary-nav" class="nav-links" data-open="false" aria-label="Hoofdmenu">
+      <a href="#werkwijze">Werkwijze</a>
+      <a href="#cases">Resultaten</a>
+      <a href="#planner">Planner</a>
+      <a href="#prijzen">Pakketten</a>
+      <a href="#faq">Veelgesteld</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#contact" class="btn btn-ghost">Plan een gesprek</a>
+      <button class="nav-toggle" id="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Menu openen">
+        <svg aria-hidden="true"><use href="#icon-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1>Short form content dat zichtbaarheid, omzet en klanten oplevert.</h1>
+        <p class="lede">
+          Ziani Media is een creative agency uit Roosendaal. Met korte, professioneel geschoten video's
+          voor social media zorgen we voor meer zichtbaarheid, omzet en klanten, door heel Nederland en
+          daarbuiten. Een gezicht op de video's is een vereiste; wij verzorgen strategie, opname,
+          montage en plaatsing.
+        </p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Plan een gesprek</a>
+          <a href="#cases" class="btn btn-ghost">Bekijk voorbeelden</a>
+        </div>
+        <div class="hero-note">
+          <svg aria-hidden="true"><use href="#icon-check"/></svg>
+          Geen langlopend contract nodig om te starten: je schaalt op wanneer het werkt.
+        </div>
+      </div>
+
+      <!-- Vertical-video mockup, now with real footage: three silent, looping preview clips
+           (assets/video/hero-1.mp4, hero-2.mp4, hero-3.mp4 — trimmed to 10s, 720x1280, no audio).
+           Muted + playsinline is required for autoplay to work in browsers (esp. mobile Safari). -->
+      <div>
+        <div class="reel-stack">
+          <div class="reel-card">
+            <video src="assets/video/hero-1.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+          </div>
+          <div class="reel-card">
+            <video src="assets/video/hero-2.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+          </div>
+          <div class="reel-card">
+            <video src="assets/video/hero-3.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+          </div>
+        </div>
+        <p class="reel-caption">Een voorproefje van het soort korte, verticale video's dat we maken</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ services strip — full dienstenaanbod naast short form content marketing ============ -->
+  <section class="services" aria-labelledby="services-title">
+    <div class="container">
+      <div class="services-head">
+        <h2 id="services-title">Meer dan short form content</h2>
+        <p style="margin-inline:auto;">Short form content marketing is onze grootste en meest gevraagde dienst. Daarnaast schakel je ons ook los in voor het volgende.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-chip">
+          <span class="icon tone-primary" aria-hidden="true"><svg><use href="#icon-film"/></svg></span>
+          <h3>Short form content marketing</h3>
+          <p>Korte video's voor social media, gericht op meer zichtbaarheid, omzet en klanten.</p>
+        </div>
+        <div class="service-chip">
+          <span class="icon tone-primary" aria-hidden="true"><svg><use href="#icon-drone"/></svg></span>
+          <h3>Drone-video</h3>
+          <p>Luchtbeelden die je bedrijf of pand net dat beetje extra laten opvallen.</p>
+        </div>
+        <div class="service-chip">
+          <span class="icon tone-coral" aria-hidden="true"><svg><use href="#icon-palette"/></svg></span>
+          <h3>Grafisch ontwerp</h3>
+          <p>Van logo's en flyers tot banners en social templates.</p>
+        </div>
+        <div class="service-chip">
+          <span class="icon tone-lime" aria-hidden="true"><svg><use href="#icon-monitor"/></svg></span>
+          <h3>Webdesign</h3>
+          <p>Websites en webshops die net zo scherp zijn als je video's.</p>
+        </div>
+        <div class="service-chip">
+          <span class="icon tone-lime" aria-hidden="true"><svg><use href="#icon-spark"/></svg></span>
+          <h3>AI-systemen</h3>
+          <p>AI-systemen die processen in je bedrijf automatiseren, op maat gebouwd.</p>
+        </div>
+        <div class="service-chip">
+          <span class="icon tone-primary" aria-hidden="true"><svg><use href="#icon-badge"/></svg></span>
+          <h3>Branding</h3>
+          <p>Een merk dat mensen herkennen, in elke video en op elke pagina.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ trust bar: logo's van eerdere/huidige klanten ============ -->
+  <section class="trust-bar" aria-label="Bedrijven waar we mee gewerkt hebben">
+    <div class="container">
+      <p class="trust-bar-label">Vertrouwd door ondernemers in binnen- en buitenland</p>
+      <div class="marquee">
+        <!-- One continuous flex row, logo's twee keer achter elkaar (tweede set aria-hidden
+             met leeg alt-attribuut) zodat translateX(-50%) naadloos in een lus doorloopt.
+             Voeg je een logo toe: doe dat op dezelfde plek in BEIDE sets hieronder. -->
+        <div class="marquee-track">
+          <span class="logo-chip"><img src="assets/logos-clients/gemeente-roosendaal.png" alt="Gemeente Roosendaal" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/ads-express.png" alt="ADS Express" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/kesatay.png" alt="Kesatay" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/cultuur-compaan.png" alt="Cultuur Compaan" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/soccerfanshop.png" alt="Soccerfanshop" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/wijzijn.png" alt="WijZijn" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/bwlz.png" alt="Bwlz" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/een-tweetje.png" alt="Één-Tweetje" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/sultan-scents.png" alt="Sultan Scents" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/souk-beldi.png" alt="Souk Beldi" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/noor-sneakers.png" alt="Noor Sneakers" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/mdb-daktechniek.png" alt="MDB Daktechniek" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/absolute-car-cleaning.png" alt="Absolute Car Cleaning" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/qml.png" alt="QML" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/elite-sport-autos.png" alt="Elite Sport Autos" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/gemeente-roosendaal.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/ads-express.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/kesatay.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/cultuur-compaan.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/soccerfanshop.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/wijzijn.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/bwlz.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/een-tweetje.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/sultan-scents.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/souk-beldi.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/noor-sneakers.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/mdb-daktechniek.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/absolute-car-cleaning.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/qml.png" alt="" aria-hidden="true" loading="lazy"></span>
+          <span class="logo-chip"><img src="assets/logos-clients/elite-sport-autos.png" alt="" aria-hidden="true" loading="lazy"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASES / VOORBEELDEN ============ -->
+  <section class="cases" id="cases" aria-labelledby="cases-title">
+    <div class="container">
+      <div class="cases-head">
+        <h2 id="cases-title">Voorbeelden van hoe dit eruit ziet</h2>
+        <p class="lede">
+          Een paar video's die we recent maakten, met de resultaten die eruit kwamen. Klik op een video om 'm
+          (met geluid) te bekijken.
+        </p>
+      </div>
+      <div class="case-grid">
+        <!-- CASE 1 -->
+        <article class="case-card">
+          <div class="case-thumb">
+            <video controls playsinline preload="metadata" poster="assets/video/case-1-poster.jpg" src="assets/video/case-1.mp4"></video>
+          </div>
+          <div class="case-body">
+            <span class="case-tag">Scooterzaak</span>
+            <h3>Twins2wielers</h3>
+            <span class="case-result">1 miljoen weergaven in de eerste week · €40.000 extra omzet</span>
+            <p>In de eerste maand behaalden we voor Twins2wielers meer dan 1 miljoen organische weergaven in de eerste week, met meerdere voertuigen die dankzij de video's zijn verkocht.</p>
+          </div>
+        </article>
+        <!-- CASE 2 -->
+        <article class="case-card">
+          <div class="case-thumb">
+            <video controls playsinline preload="metadata" poster="assets/video/case-2-poster.jpg" src="assets/video/case-2.mp4"></video>
+          </div>
+          <div class="case-body">
+            <span class="case-tag">Auto detailing</span>
+            <h3>Absolute Car Cleaning</h3>
+            <span class="case-result">260.000+ weergaven op één video · producten verkocht</span>
+            <p>Deze video's zijn gericht op productverkoop: veel bereik, directe verkoop en een kanaal dat steeds harder groeit. Inmiddels miljoenen weergaven in de afgelopen maanden.</p>
+          </div>
+        </article>
+        <!-- CASE 3 -->
+        <article class="case-card">
+          <div class="case-thumb">
+            <video controls playsinline preload="metadata" poster="assets/video/case-3-poster.jpg" src="assets/video/case-3.mp4"></video>
+          </div>
+          <div class="case-body">
+            <span class="case-tag">Theemerk</span>
+            <h3>Kesatay</h3>
+            <span class="case-result">300.000+ weergaven in de eerste week · 100+ orders per dag</span>
+            <p>Rond de lancering van Kesatay verzorgden we 2 maanden lang de content. In de eerste week trokken we duizenden bezoekers naar de pop-up store op Rotterdam Centraal, met dagelijks meer dan 100 verkochte flesjes.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. SOCIALE BEWIJSKRACHT ============ -->
+  <section class="proof" aria-labelledby="proof-title">
+    <div class="container">
+      <div class="proof-regions">
+        <span class="eyebrow"><svg aria-hidden="true"><use href="#icon-pin"/></svg>Actief in Nederland en daarbuiten</span>
+        <h2 id="proof-title" style="margin-block-end:.5rem;">Voor ondernemers in elke branche</h2>
+        <p>Een kleine greep uit de branches waar we mee samenwerken:</p>
+        <ul class="region-list">
+          <li>Horeca</li><li>Detailhandel</li><li>Bouw &amp; installatie</li>
+          <li>Beauty &amp; wellness</li><li>Sport &amp; fitness</li>
+          <li>Automotive</li><li>Vakmensen &amp; ZZP</li>
+        </ul>
+      </div>
+
+      <div class="stat-bar">
+        <div class="stat">
+          <strong>300+</strong>
+          <span>ondernemers geholpen</span>
+        </div>
+        <div class="stat">
+          <strong>10 mln+</strong>
+          <span>organische weergaven behaald</span>
+        </div>
+        <div class="stat">
+          <strong>4,5★</strong>
+          <span>gemiddelde beoordeling</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. PROBLEEM / OPLOSSING ============ -->
+  <section class="compare" aria-labelledby="compare-title">
+    <div class="container">
+      <div class="compare-head">
+        <h2 id="compare-title">Adverteren kost geld. Content bouwt een merk op.</h2>
+        <p class="lede">Het verschil tussen doorlopend budget verbranden en iets opbouwen dat blijft.</p>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-col old">
+          <h3>De gebruikelijke aanpak</h3>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#icon-x"/></svg>Blijvend advertentiebudget nodig om zichtbaar te blijven</li>
+            <li><svg aria-hidden="true"><use href="#icon-x"/></svg>Stockbeelden die niet naar jouw bedrijf verwijzen</li>
+            <li><svg aria-hidden="true"><use href="#icon-x"/></svg>Los een cameraman, editor en planner regelen</li>
+            <li><svg aria-hidden="true"><use href="#icon-x"/></svg>Onduidelijk wat het je nu eigenlijk oplevert</li>
+          </ul>
+        </div>
+        <div class="compare-col new">
+          <h3>De aanpak van Ziani Media</h3>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Organisch bereik dat maand na maand opbouwt</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Een gezicht in beeld, voor vertrouwen en herkenbaarheid</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Professionele camera- en geluidsapparatuur voor een scherp resultaat</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Eén ervaren team voor strategie, opname, montage en plaatsing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. WERKWIJZE ============ -->
+  <section class="process" id="werkwijze" aria-labelledby="process-title">
+    <div class="container">
+      <div class="process-head">
+        <h2 id="process-title">Zo werkt het, elke maand opnieuw</h2>
+        <p class="lede">Vier stappen: de eerste keer leggen we het samen vast, daarna herhaalt dit ritme zich.</p>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num" aria-hidden="true">1</span>
+          <h3>Ontdekken</h3>
+          <p>Korte kennismaking: wie je bent, wie je doelgroep is en waar je bedrijf van opvalt.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">2</span>
+          <h3>Filmen</h3>
+          <p>Ons team komt langs met professionele camera- en geluidsapparatuur, door heel Nederland en daarbuiten.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">3</span>
+          <h3>Editen</h3>
+          <p>Montage, ondertiteling en afstemming per platform: TikTok, Instagram, YouTube Shorts.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">4</span>
+          <h3>Plaatsen</h3>
+          <p>We plaatsen volgens een vast schema en houden de resultaten in de gaten.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ REVIEWS ============ -->
+  <section class="reviews" aria-labelledby="reviews-title">
+    <div class="container">
+      <div class="reviews-head">
+        <h2 id="reviews-title">Wat klanten zeggen</h2>
+        <p class="lede">Een paar reacties van ondernemers waar we mee hebben samengewerkt.</p>
+      </div>
+      <div class="review-grid">
+        <div class="review-card">
+          <div class="review-stars" aria-hidden="true">
+            <svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg>
+          </div>
+          <p class="review-quote">"Super bedankt voor je tijd en moeite die je er in hebt gestoken! Ben heel tevreden met het eindresultaat. Ook je geduld verdient een schouderklopje! Het is een prachtige logo geworden! Keep up the good work!!"</p>
+          <span class="review-who">Eigenaresse, La Mirage Beauty Roosendaal</span>
+        </div>
+        <div class="review-card">
+          <div class="review-stars" aria-hidden="true">
+            <svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg>
+          </div>
+          <p class="review-quote">"De kracht van Ziani Media is next level! We zijn zo veel gegroeid in een korte tijd, boven onze verwachting. Zeker een aanrader!"</p>
+          <span class="review-who">Othmen, Absolute Car Cleaning</span>
+        </div>
+        <div class="review-card">
+          <div class="review-stars" aria-hidden="true">
+            <svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg><svg><use href="#icon-star"/></svg>
+          </div>
+          <p class="review-quote">"Dankjewel voor het prachtige resultaat. Heel veel succes met je eigen onderneming! Weet zeker dat je daar een succes van gaat maken. Ik kan jouw in de toekomst nog wel eens heel goed gebruiken."</p>
+          <span class="review-who">Lieke van Pruijssen, CultuurCompaan</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOCIAL MEDIA PLANNER — interactieve tool ============
+       Inhoud/scoringsregels staan los in assets/js/social-planner-rules.js,
+       de wizard-UI in assets/js/social-planner.js (beide onderaan geladen).
+       Volledig client-side: geen opslag, geen verzending, alleen een direct
+       resultaat + een doorlink naar #prijzen. -->
+  <section class="planner" id="planner" aria-labelledby="planner-title">
+    <div class="container">
+      <div class="planner-head">
+        <span class="eyebrow"><svg aria-hidden="true"><use href="#icon-spark"/></svg>Gratis, direct resultaat</span>
+        <h2 id="planner-title">Ontdek jouw social-ritme</h2>
+        <p class="lede">Beantwoord 6 korte vragen en zie meteen hoe vaak je zou moeten posten, op welke kanalen, en welk Groei-pakket daarbij past.</p>
+      </div>
+      <div class="planner-app" id="planner-app">
+        <noscript><p>Deze tool heeft JavaScript nodig om te werken. <a href="#contact">Neem contact op</a> voor persoonlijk advies.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. PRIJZEN ============ -->
+  <section class="pricing" id="prijzen" aria-labelledby="pricing-title">
+    <div class="container">
+      <div class="pricing-head">
+        <h2 id="pricing-title">Kies het ritme dat bij je past</h2>
+        <p class="lede">Drie pakketten, elk met een vast aantal video's per maand.</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card tone-coral">
+          <span class="price-kicker">Instapniveau</span>
+          <h3>Groei Basis</h3>
+          <div class="price-tag"><span class="amount">€1.500</span> <span class="period">/ maand · ex btw</span></div>
+          <p style="margin-block-end:1rem;">Voor ondernemers die online zichtbaar willen zijn met een basis contentstrategie.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>8 video's per maand (2 per week)</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Contentplanning op maat</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Maandelijks overleg</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Social media beheer optioneel bij te boeken (+€100/maand)</li>
+          </ul>
+          <a href="#contact" class="btn btn-ghost btn-block">Kies Groei Basis</a>
+        </div>
+        <div class="price-card featured">
+          <span class="price-badge">Meest gekozen</span>
+          <span class="price-kicker">Sterkste balans</span>
+          <h3>Groei Plus</h3>
+          <div class="price-tag"><span class="amount">€2.000</span> <span class="period">/ maand · ex btw</span></div>
+          <p style="margin-block-end:1rem;">Voor ondernemers die online zichtbaar willen zijn met een sterke contentstrategie.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>12 video's per maand (3 per week)</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Contentplanning op maat</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Maandelijks overleg en bijsturing</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Social media beheer (plaatsen, interactie en optimalisatie)</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary btn-block">Kies Groei Plus</a>
+        </div>
+        <div class="price-card tone-lime">
+          <span class="price-kicker">Volledig ontzorgd</span>
+          <h3>Groei Ultra</h3>
+          <div class="price-tag"><span class="amount">€2.600</span> <span class="period">/ maand · ex btw</span></div>
+          <p style="margin-block-end:1rem;">Voor bedrijven die volledig ontzorgd willen worden op het gebied van content én social media, met een agressief schema.</p>
+          <ul>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>16 video's per maand (4 per week)</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Contentplanning op maat</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Social media beheer (plaatsen, interactie en optimalisatie)</li>
+            <li><svg aria-hidden="true"><use href="#icon-check"/></svg>Maandelijks overleg en rapportage</li>
+          </ul>
+          <a href="#contact" class="btn btn-ghost btn-block">Kies Groei Ultra</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9. FAQ ============ -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="faq-head">
+      <h2 id="faq-title">Veelgestelde vragen</h2>
+    </div>
+
+    <details class="faq-item">
+      <summary>Moet er een gezicht in beeld?<span class="faq-icon" aria-hidden="true"></span></summary>
+      <p>Ja, dat is een vast onderdeel van short form content marketing: een gezicht zorgt voor vertrouwen en herkenbaarheid, en dat werkt beter dan beelden zonder gezicht. Dat hoeft niet per se iemand van het bedrijf te zijn, een figurant kan ook in beeld komen. Het beste werkt het wel als jij als eigenaar zelf in beeld komt: jij kent je bedrijf als geen ander en dat straalt er in de video's ook echt uit.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Wat kost het?<span class="faq-icon" aria-hidden="true"></span></summary>
+      <p>Dat hangt af van het pakket: Groei Basis (€1.500/maand), Groei Plus (€2.000/maand) of Groei Ultra (€2.600/maand), allemaal excl. btw. Plan een gesprek en we kijken samen welk ritme het beste bij je past.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Hoe snel zie ik resultaat?<span class="faq-icon" aria-hidden="true"></span></summary>
+      <p>Dat verschilt echt per bedrijf. De ene klant vliegt al de eerste maand de lucht in, bij de ander duurt het een paar maanden voor het momentum er goed inzit. Gemiddeld zie je na 2-3 maanden consistentie echt resultaat, en dat effect versterkt zich naarmate er meer video's online staan.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Wie bepaalt waar de video's over gaan?<span class="faq-icon" aria-hidden="true"></span></summary>
+      <p>Dat doen we samen. In de eerste stap (Ontdekken) stellen we een contentplan op dat past bij jouw bedrijf en doelgroep. Daarna vullen we dat maandelijks verder aan.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Kan ik wisselen van pakket?<span class="faq-icon" aria-hidden="true"></span></summary>
+      <p>Ja. Je kiest zelf met welk pakket je start, ook Groei Ultra vanaf dag één als dat bij je past, en je kan altijd op- of afschalen als je situatie verandert. Neem contact op om de exacte voorwaarden te bespreken.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Werken jullie alleen met abonnementen?<span class="faq-icon" aria-hidden="true"></span></summary>
+      <p>Nee. Een losse video, drone-opname, of een eenmalig project op het gebied van design, webdesign, AI of branding kan ook zonder abonnement.</p>
+    </details>
+  </section>
+
+  <!-- ============ 10. CONTACT ============ -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <h2 id="contact-title">Laten we kennismaken</h2>
+        <p class="lede">Vertel kort waar je mee zit of wat je zoekt. We reageren binnen één werkdag.</p>
+        <div class="contact-details">
+          <div class="row"><svg aria-hidden="true"><use href="#icon-mail"/></svg><a href="mailto:contact@zianimedia.nl">contact@zianimedia.nl</a></div>
+          <div class="row"><svg aria-hidden="true"><use href="#icon-phone"/></svg><a href="tel:+31616288301">+31 616 288 301</a></div>
+          <div class="row"><svg aria-hidden="true"><use href="#icon-pin"/></svg><span>Rechtzaad 15, 4703 RC Roosendaal</span></div>
+        </div>
+      </div>
+
+      <!--
+        Contactformulier — dit is puur front-end. Voor een werkende inzending moet dit nog gekoppeld
+        worden aan een backend (bv. een serverless functie, Formspree, of je eigen API):
+        vervang de JS hieronder door een echte fetch()/submit naar dat endpoint.
+      -->
+      <form id="contact-form" novalidate>
+        <div class="field">
+          <label for="f-name">Naam</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="f-email">E-mail</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="f-company">Bedrijfsnaam</label>
+          <input id="f-company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="f-message">Bericht</label>
+          <textarea id="f-message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Verstuur bericht</button>
+        <p class="form-note" id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#top" class="brand" style="margin-block-end:.75rem; display:inline-flex;" aria-label="Ziani Media, naar boven">
+          <img class="brand-logo footer-logo" src="assets/logo/ziani-media-logo.png" alt="Ziani Media">
+        </a>
+        <p>Creative agency uit Roosendaal, gespecialiseerd in short form content marketing. Ook grafisch ontwerp, webdesign, drone-video en AI-systemen, in Nederland en daarbuiten.</p>
+      </div>
+      <div>
+        <h4>Pagina</h4>
+        <ul>
+          <li><a href="#werkwijze">Werkwijze</a></li>
+          <li><a href="#cases">Resultaten</a></li>
+          <li><a href="#planner">Planner</a></li>
+          <li><a href="#prijzen">Pakketten</a></li>
+          <li><a href="#faq">Veelgesteld</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:contact@zianimedia.nl">contact@zianimedia.nl</a></li>
+          <li><a href="tel:+31616288301">+31 616 288 301</a></li>
+          <li>Rechtzaad 15, 4703 RC Roosendaal</li>
+          <li><a href="#contact">Plan een gesprek</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Ziani Media. Alle rechten voorbehouden.</span>
+      <span>KvK-nummer 95339337</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/social-planner-rules.js"></script>
+<script src="assets/js/social-planner.js"></script>
+<script>
+  // Hero preview clips: respect prefers-reduced-motion by not auto-looping them,
+  // otherwise give the `autoplay` attribute a JS-triggered backup. Some browsers/
+  // webviews don't reliably honor declarative autoplay once the element is ready,
+  // so calling .play() explicitly (muted, so policy allows it) covers that gap.
+  document.querySelectorAll('.reel-card video').forEach(function(v){
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      v.removeAttribute('autoplay');
+      v.pause();
+    } else {
+      var tryPlay = function(){ v.play().catch(function(){ /* ignore: needs a user gesture on this browser */ }); };
+      if (v.readyState >= 2) tryPlay();
+      else v.addEventListener('loadeddata', tryPlay, { once: true });
+    }
+  });
+
+  // Mobile nav toggle
+  (function(){
+    var toggle = document.getElementById('nav-toggle');
+    var nav = document.getElementById('primary-nav');
+    toggle.addEventListener('click', function(){
+      var open = nav.getAttribute('data-open') === 'true';
+      nav.setAttribute('data-open', String(!open));
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.setAttribute('aria-label', open ? 'Menu openen' : 'Menu sluiten');
+    });
+    nav.querySelectorAll('a').forEach(function(link){
+      link.addEventListener('click', function(){
+        nav.setAttribute('data-open', 'false');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Menu openen');
+      });
+    });
+  })();
+
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Contact form — placeholder handling only.
+  // TODO: replace this block with a real submission (fetch() to your API, Formspree, etc.)
+  // before going live. Currently it only shows a confirmation message locally.
+  document.getElementById('contact-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var status = document.getElementById('form-status');
+    status.textContent = 'Bedankt! Dit is nog een demo-formulier. Koppel het aan een echt e-mailadres/backend voordat de site live gaat.';
+    status.setAttribute('data-state', 'success');
+    this.reset();
+  });
+</script>
+</body>
+</html>

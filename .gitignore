@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Archives / export artifacts (not source)
+*.zip
+__MACOSX/
+
+# Local backups
+assets/video/_backup_noaudio/
+
+# Unused stray uploads — not referenced anywhere in ziani-media.html
+assets/images/
+
+# Raw, unedited client video uploads — not used by the site (only the trimmed
+# hero-*.mp4 / case-*.mp4 clips are referenced from ziani-media.html), and
+# each one is far above GitHub's 100MB per-file limit anyway.
+assets/video/FBCvid4.mp4
+assets/video/SFt2wvid17.mp4
+assets/video/SFtwvid1.mp4
+assets/video/ACCvid51.mp4
+assets/video/SFktvid2.mp4
+assets/video/svvid8.mp4
