@@ -8,6 +8,23 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fcfdff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0f1a">
+
+<!-- Linkvoorbeeld bij delen op WhatsApp, LinkedIn, Instagram, etc.
+     Komt de site op een ander domein? Pas dan de absolute URL's hieronder aan. -->
+<link rel="canonical" href="https://zianimedia.nl/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ziani Media">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:url" content="https://zianimedia.nl/">
+<meta property="og:title" content="Ziani Media: creative agency voor short form content marketing">
+<meta property="og:description" content="Korte video's voor social media die zichtbaarheid, omzet en klanten opleveren. Creative agency uit Roosendaal, actief in Nederland en daarbuiten.">
+<meta property="og:image" content="https://zianimedia.nl/assets/logo/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ziani Media: creative agency voor short form content marketing">
+<meta name="twitter:description" content="Korte video's voor social media die zichtbaarheid, omzet en klanten opleveren. Creative agency uit Roosendaal, actief in Nederland en daarbuiten.">
+<meta name="twitter:image" content="https://zianimedia.nl/assets/logo/og-image.jpg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/logo/favicon-180.png">
 <link rel="icon" type="image/png" sizes="512x512" href="assets/logo/favicon-512.png">
@@ -188,6 +205,7 @@
     white-space: nowrap;
   }
   .btn:hover{ transform: translateY(-2px); text-decoration:none; }
+  .btn:disabled{ opacity:.55; cursor:not-allowed; transform:none; box-shadow:none; }
   .btn-primary{ background: var(--color-primary); color: var(--color-ink); box-shadow: var(--shadow-md); }
   .btn-primary:hover{ box-shadow: var(--shadow-lg); }
   .btn-ghost{ background: transparent; border-color: var(--color-border); color: var(--color-ink); }
@@ -424,7 +442,7 @@
   .case-body p{ font-size:.92rem; }
   @media (max-width:900px){ .case-grid{ grid-template-columns:1fr; } }
 
-  /* ---------- reviews (template placeholders — clearly not real yet) ---------- */
+  /* ---------- reviews ---------- */
   .reviews{ padding-block: var(--space-2xl); }
   .reviews-head{ max-width: 42rem; margin-block-end: var(--space-xl); }
   .review-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: var(--space-lg); }
@@ -601,6 +619,7 @@
   .form-note{ font-size:.85rem; color: var(--color-ink-soft); }
   #form-status{ font-size:.92rem; font-weight:600; }
   #form-status[data-state="success"]{ color: var(--color-lime-text); }
+  #form-status[data-state="error"]{ color: var(--color-coral-text); }
 
   @media (max-width:860px){ .contact-grid{ grid-template-columns:1fr; } }
 
@@ -1112,11 +1131,16 @@
       </div>
 
       <!--
-        Contactformulier — dit is puur front-end. Voor een werkende inzending moet dit nog gekoppeld
-        worden aan een backend (bv. een serverless functie, Formspree, of je eigen API):
-        vervang de JS hieronder door een echte fetch()/submit naar dat endpoint.
+        Contactformulier — verstuurt via Web3Forms (https://web3forms.com), een gratis dienst die
+        formulierinzendingen direct doormailt naar contact@zianimedia.nl, zonder eigen backend/server.
+        De access key hieronder hoort publiek in de HTML te staan (zo werkt Web3Forms); wil je hem
+        wijzigen of het ontvangstadres aanpassen, doe dat in je Web3Forms-dashboard.
       -->
       <form id="contact-form" novalidate>
+        <input type="hidden" name="access_key" value="97b88287-9f39-48c5-953b-cd419b75001c">
+        <input type="hidden" name="subject" value="Nieuw bericht via de website — Ziani Media">
+        <input type="hidden" name="from_name" value="Ziani Media website">
+        <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off">
         <div class="field">
           <label for="f-name">Naam</label>
           <input id="f-name" name="name" type="text" autocomplete="name" required>
@@ -1217,15 +1241,38 @@
   // Footer year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Contact form — placeholder handling only.
-  // TODO: replace this block with a real submission (fetch() to your API, Formspree, etc.)
-  // before going live. Currently it only shows a confirmation message locally.
+  // Contact form — verstuurt via Web3Forms (zie de HTML-comment boven het formulier voor setup).
   document.getElementById('contact-form').addEventListener('submit', function(e){
     e.preventDefault();
+    var form = this;
     var status = document.getElementById('form-status');
-    status.textContent = 'Bedankt! Dit is nog een demo-formulier. Koppel het aan een echt e-mailadres/backend voordat de site live gaat.';
-    status.setAttribute('data-state', 'success');
-    this.reset();
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    submitBtn.disabled = true;
+    status.removeAttribute('data-state');
+    status.textContent = 'Bezig met versturen...';
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+      .then(function(response){ return response.json().then(function(data){ return { ok: response.ok, data: data }; }); })
+      .then(function(result){
+        if (!result.ok || !result.data.success) {
+          throw new Error((result.data && result.data.message) || 'Versturen mislukt');
+        }
+        status.textContent = 'Bedankt! Je bericht is verstuurd, we reageren binnen één werkdag.';
+        status.setAttribute('data-state', 'success');
+        form.reset();
+      })
+      .catch(function(){
+        status.textContent = 'Er ging iets mis bij het versturen. Mail ons rechtstreeks op contact@zianimedia.nl.';
+        status.setAttribute('data-state', 'error');
+      })
+      .finally(function(){
+        submitBtn.disabled = false;
+      });
   });
 </script>
 </body>
