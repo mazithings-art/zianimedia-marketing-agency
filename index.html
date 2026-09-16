@@ -293,6 +293,12 @@
   @media (max-width: 900px){
     .hero-grid{ grid-template-columns: 1fr; }
     .reel-stack{ height: 340px; margin-inline:auto; max-width:320px; }
+    /* De kaarten staan links in de stack (0%) maar eindigen op 96%, en kaart 1 steekt
+       door zijn rotatie nog verder naar links uit. Op één kolom valt het blok daardoor
+       zichtbaar links van het midden; deze offset zet het cluster weer gecentreerd. */
+    .reel-card:nth-of-type(1){ left:5%; }
+    .reel-card:nth-of-type(2){ left:27%; }
+    .reel-card:nth-of-type(3){ left:49%; }
   }
 
   /* ---------- trust bar: scrolling client-logo marquee ---------- */
