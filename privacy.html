@@ -11,9 +11,9 @@
 <link rel="canonical" href="https://zianimedia.nl/privacy.html">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/logo/favicon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/big-shoulders-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <style>
   /* Zelfde kleur- en lettertokens als index.html, zodat deze pagina in de huisstijl blijft. */
   :root{
@@ -106,7 +106,7 @@
   <ul>
     <li><strong>Contactformulier:</strong> je naam, e-mailadres, bedrijfsnaam (optioneel) en je bericht.</li>
     <li><strong>E-mail en telefoon:</strong> de gegevens die je deelt als je ons rechtstreeks mailt of belt.</li>
-    <li><strong>Technische gegevens:</strong> bij elk bezoek ontvangt onze hostingpartij je IP-adres, en bij het laden van de lettertypes ook Google (zie punt 4). Wij hebben zelf geen toegang tot deze gegevens.</li>
+    <li><strong>Technische gegevens:</strong> bij elk bezoek ontvangt onze hostingpartij je IP-adres (zie punt 4). Wij hebben zelf geen toegang tot deze gegevens.</li>
     <li><strong>Social media planner:</strong> je antwoorden blijven in je eigen browser. Ze worden niet opgeslagen en niet naar ons verstuurd.</li>
   </ul>
   <p>Wij vragen niet om bijzondere persoonsgegevens en verkopen geen gegevens.</p>
@@ -123,11 +123,12 @@
     <li><strong>Web3Forms</strong> ontvangt de berichten van het contactformulier en stuurt ze door naar ons e-mailadres. Web3Forms kan gegevens buiten de Europese Economische Ruimte verwerken.</li>
     <li><strong>STRATO</strong> verzorgt onze e-mail en domeinnaam. STRATO is gevestigd in Duitsland.</li>
     <li><strong>GitHub</strong> (Verenigde Staten) host deze website. GitHub legt bij elk bezoek het IP-adres van de bezoeker vast voor beveiligingsdoeleinden.</li>
-    <li><strong>Google</strong> (Google Fonts) levert de lettertypes van deze website. Je browser maakt daarvoor verbinding met servers van Google, waardoor Google je IP-adres ontvangt. Google plaatst hierbij geen cookies.</li>
   </ul>
   <p>
-    Waar GitHub en Google gegevens buiten de Europese Economische Ruimte verwerken, gebeurt dat op basis van het
-    EU-VS Data Privacy Framework of de standaardcontractbepalingen van de Europese Commissie.
+    Waar GitHub gegevens buiten de Europese Economische Ruimte verwerkt, gebeurt dat op basis van het EU-VS Data
+    Privacy Framework of de standaardcontractbepalingen van de Europese Commissie. De lettertypes en alle andere
+    bestanden van deze website staan bij onze hostingpartij, zodat je browser voor een bezoek geen verbinding hoeft te
+    maken met andere partijen.
   </p>
   <p>
     Op deze website staan links naar onze pagina's op Instagram, TikTok, Facebook en LinkedIn. Die platforms worden pas
