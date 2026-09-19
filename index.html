@@ -744,13 +744,13 @@
       <div>
         <div class="reel-stack">
           <div class="reel-card">
-            <video src="assets/video/hero-1.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+            <video src="assets/video/hero-1.mp4" poster="assets/video/hero-1-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
           </div>
           <div class="reel-card">
-            <video src="assets/video/hero-2.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+            <video src="assets/video/hero-2.mp4" poster="assets/video/hero-2-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
           </div>
           <div class="reel-card">
-            <video src="assets/video/hero-3.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+            <video src="assets/video/hero-3.mp4" poster="assets/video/hero-3-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
           </div>
         </div>
         <p class="reel-caption">Een voorproefje van het soort korte, verticale video's dat we maken</p>
@@ -1210,20 +1210,36 @@
 <script src="assets/js/social-planner-rules.js"></script>
 <script src="assets/js/social-planner.js"></script>
 <script>
-  // Hero preview clips: respect prefers-reduced-motion by not auto-looping them,
-  // otherwise give the `autoplay` attribute a JS-triggered backup. Some browsers/
-  // webviews don't reliably honor declarative autoplay once the element is ready,
-  // so calling .play() explicitly (muted, so policy allows it) covers that gap.
-  document.querySelectorAll('.reel-card video').forEach(function(v){
+  // Hero preview clips. In-app browsers (TikTok, Instagram, Facebook) often block
+  // autoplay even for muted video; the poster keeps the cards filled regardless, and
+  // the first tap/key anywhere on the page retries playback, which those browsers allow.
+  (function(){
+    var heroVideos = document.querySelectorAll('.reel-card video');
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      v.removeAttribute('autoplay');
-      v.pause();
-    } else {
-      var tryPlay = function(){ v.play().catch(function(){ /* ignore: needs a user gesture on this browser */ }); };
-      if (v.readyState >= 2) tryPlay();
-      else v.addEventListener('loadeddata', tryPlay, { once: true });
+      heroVideos.forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); });
+      return;
     }
-  });
+    var blocked = false;
+    var playAll = function(){
+      heroVideos.forEach(function(v){
+        var p = v.play();
+        if (p && p.catch) p.catch(function(){ blocked = true; armGestureRetry(); });
+      });
+    };
+    var gestureEvents = ['touchend', 'pointerup', 'click', 'keydown'];
+    var armed = false;
+    var onGesture = function(){
+      gestureEvents.forEach(function(e){ document.removeEventListener(e, onGesture, true); });
+      armed = false;
+      if (blocked) { blocked = false; playAll(); }
+    };
+    var armGestureRetry = function(){
+      if (armed) return;
+      armed = true;
+      gestureEvents.forEach(function(e){ document.addEventListener(e, onGesture, { capture: true, passive: true }); });
+    };
+    playAll();
+  })();
 
   // Mobile nav toggle
   (function(){
