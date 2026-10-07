@@ -15,9 +15,20 @@ webdesign.jpg
   Licentie: CC0 1.0 (publiek domein, geen bronvermelding verplicht).
   https://commons.wikimedia.org/wiki/File:Laptop_on_a_desk_(Unsplash).jpg
 
-grafisch-ontwerp.jpg, ai-systemen.jpg, branding.jpg
-  Zelfgemaakte kleurvlakken in de huisstijl. Hiervoor is nog geen
-  rechtenvrije foto gevonden die bij het onderwerp past.
+grafisch-ontwerp.jpg
+  "Color palette sheet" via rawpixel, gevonden via Openverse.
+  Licentie: CC0 1.0 (publiek domein, geen bronvermelding verplicht).
+  https://www.rawpixel.com/image/6039260/photo-image-public-domain-rainbow-free
+
+ai-systemen.jpg
+  "Circuit Macro" via StockSnap, gevonden via Openverse.
+  Licentie: CC0 1.0 (publiek domein, geen bronvermelding verplicht).
+  https://stocksnap.io/photo/circuit-macro-MADL8CN3KW
+
+branding.jpg
+  Blanco visitekaartjes op hout, via rawpixel, gevonden via Openverse.
+  Licentie: CC0 1.0 (publiek domein, geen bronvermelding verplicht).
+  https://www.rawpixel.com/image/5956125/free-public-domain-cc0-photo
 
 Alle banners zijn 1600x640 en krijgen in site.css een donkere laag
 (linear-gradient 0.72 -> 0.86) zodat de titel leesbaar blijft.
