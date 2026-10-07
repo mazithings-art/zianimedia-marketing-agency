@@ -1,0 +1,23 @@
+Herkomst van de banners achter de paginatitels
+==============================================
+
+short-form-content-marketing.jpg
+  Eigen opnames van Ziani Media (scooterzaak, vendingmachine, Kesatay).
+
+drone-video.jpg
+  "2005.04 - Amsterdam photo of a overview of a building pit Oosterdok in
+  Amsterdam, 2005" - Fons Heijnsbroek, via Wikimedia Commons.
+  Licentie: CC0 1.0 (publiek domein, geen bronvermelding verplicht).
+  https://commons.wikimedia.org/wiki/File:2005.04_-_Amsterdam_photo_of_a_overview_of_a_building_pit_Oosterdok_in_Amsterdam,_2005;_view_over_the_construction_site_near_Central_StationDutch_city_photo_%2B_geotag,_Fons_Heijnsbroek,_The_Netherlands_(27440032866).jpg
+
+webdesign.jpg
+  "Laptop on a desk (Unsplash)" via Wikimedia Commons.
+  Licentie: CC0 1.0 (publiek domein, geen bronvermelding verplicht).
+  https://commons.wikimedia.org/wiki/File:Laptop_on_a_desk_(Unsplash).jpg
+
+grafisch-ontwerp.jpg, ai-systemen.jpg, branding.jpg
+  Zelfgemaakte kleurvlakken in de huisstijl. Hiervoor is nog geen
+  rechtenvrije foto gevonden die bij het onderwerp past.
+
+Alle banners zijn 1600x640 en krijgen in site.css een donkere laag
+(linear-gradient 0.72 -> 0.86) zodat de titel leesbaar blijft.
