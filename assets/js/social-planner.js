@@ -270,7 +270,7 @@
     resultHost.appendChild(
       el('p', {
         class: 'planner-disclaimer',
-        text: 'Dit advies is een richtlijn op basis van jouw antwoorden, geen vaste toezegging. We stemmen de exacte invulling altijd samen met je af.'
+        text: 'Dit advies is een richtlijn op basis van jouw antwoorden, geen vaste toezegging. Wil je meer of juist minder video\'s dan dit pakket, dan stellen we er een op maat voor je samen. We stemmen de exacte invulling altijd samen met je af.'
       })
     );
     resultHost.appendChild(el('div', { class: 'planner-restart-wrap' }, [restart]));

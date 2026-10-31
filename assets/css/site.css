@@ -470,10 +470,38 @@
   .price-tag{ margin-block: var(--space-sm) var(--space-md); }
   .price-tag .amount{ font-family: var(--font-display); font-size:1.9rem; }
   .price-tag .period{ color: var(--color-ink-soft); font-size:.9rem; }
-  .price-card ul{ display:flex; flex-direction:column; gap: var(--space-xs); margin-block-end: var(--space-lg); flex-grow:1; }
+  .price-card ul{ display:flex; flex-direction:column; gap: var(--space-xs); margin-block-end: var(--space-sm); flex-grow:1; }
   .price-card li{ display:flex; gap:.6rem; align-items:flex-start; font-size:.92rem; color: var(--color-ink-soft); }
   .price-card li svg{ width:1.2em; height:1.2em; color: var(--color-lime-text); flex-shrink:0; margin-block-start:.15em; }
-  @media (max-width:900px){ .price-grid{ grid-template-columns:1fr; } .price-card.featured{ transform:none; } .price-card.featured:hover{ transform:none; } }
+  /* Kleine bijregel onder een pakket (meerprijs-opties), bewust minder opvallend dan de vinkjes. */
+  .price-note{ font-size:.82rem; line-height:1.5; color: var(--color-ink-soft); opacity:.85; margin-block-end: var(--space-md); }
+
+  /* 'Op maat' staat als brede kaart boven de drie vaste pakketten: eigen samenstelling,
+     dus een balk met alle drie de accentkleuren in plaats van één tone. */
+  .price-card-custom{
+    grid-column: 1 / -1;
+    display:grid; grid-template-columns: 1.3fr 1fr; gap: var(--space-md) var(--space-xl); align-items:start;
+    background: linear-gradient(135deg,
+      color-mix(in srgb, var(--color-primary) 13%, var(--color-surface)),
+      color-mix(in srgb, var(--color-lime) 9%, var(--color-surface)) 55%,
+      color-mix(in srgb, var(--color-coral) 11%, var(--color-surface)));
+  }
+  .price-card-custom::before{ height:8px; background: linear-gradient(90deg, var(--color-primary), var(--color-lime) 52%, var(--color-coral)); }
+  .price-card-custom .price-kicker{ color: var(--color-primary-text); }
+  .price-card-custom h3{ font-size:1.9rem; }
+  .price-card-custom .price-tag{ margin-block: var(--space-2xs) var(--space-sm); }
+  .price-card-custom .price-tag .amount{ font-size:1.7rem; }
+  .price-card-custom p{ max-width:34rem; }
+  .price-card-custom ul{ margin-block: var(--space-xs) var(--space-md); flex-grow:0; }
+  .price-card-custom li svg{ color: var(--color-primary-text); }
+  .price-custom-opts h4{ font-size:.82rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color: var(--color-ink-soft); }
+  @media (max-width:900px){
+    .price-grid{ grid-template-columns:1fr; }
+    .price-card.featured{ transform:none; }
+    .price-card.featured:hover{ transform:none; }
+    .price-card-custom{ grid-template-columns:1fr; gap: var(--space-sm); }
+    .price-card-custom h3{ font-size:1.7rem; }
+  }
 
   /* ---------- social media planner (interactieve quiz) ---------- */
   .planner{ padding-block: var(--space-2xl); }
