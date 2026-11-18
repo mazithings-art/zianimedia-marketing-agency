@@ -8,15 +8,15 @@ BRON = DOEL = pathlib.Path(__file__).resolve().parent
 W, H, FPS, DUUR = 360, 640, 30, 8.0
 TB = Fraction(1, FPS)
 
-# (bronbestand, startseconde, naam) - de start ligt bewust later dan de hero- en case-clips,
-# zodat de wand ander beeld laat zien dan wat elders op de pagina staat.
+# (bronbestand, startseconde, naam) - vanaf het begin van de opname, zodat een bezoeker
+# de intro van elke video ziet en niet ergens midden in de montage binnenvalt.
 JOBS = [
-    ('SFtwvid1.mp4',   20.0, 'wall-1'),
-    ('FBCvid4.mp4',    14.0, 'wall-2'),
-    ('SFktvid2.mp4',   22.0, 'wall-3'),
-    ('svvid8.mp4',      8.0, 'wall-4'),
-    ('ACCvid51.mp4',   16.0, 'wall-5'),
-    ('SFt2wvid17.mp4', 30.0, 'wall-6'),
+    ('SFtwvid1.mp4',   0.0, 'wall-1'),
+    ('FBCvid4.mp4',    0.0, 'wall-2'),
+    ('SFktvid2.mp4',   0.0, 'wall-3'),
+    ('svvid8.mp4',     0.0, 'wall-4'),
+    ('ACCvid51.mp4',   0.0, 'wall-5'),
+    ('SFt2wvid17.mp4', 0.0, 'wall-6'),
 ]
 
 
