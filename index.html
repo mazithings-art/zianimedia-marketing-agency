@@ -91,6 +91,8 @@
     <symbol id="icon-spark" viewBox="0 0 24 24" fill="none"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="icon-badge" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.6 2.1 3.3-.4 1 3.2 2.9 1.6-1 3.2 1 3.2-2.9 1.6-1 3.2-3.3-.4L12 22l-2.6-2.1-3.3.4-1-3.2-2.9-1.6 1-3.2-1-3.2 2.9-1.6 1-3.2 3.3.4z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="icon-play" viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></symbol>
+    <symbol id="icon-sound" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H3v6h3l5 4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M15.5 8.5a5 5 0 010 7M18.5 5.5a9 9 0 010 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="icon-sound-off" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H3v6h3l5 4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 9.5l5 5M21 9.5l-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
     <symbol id="icon-menu" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="icon-mail" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="2"/></symbol>
     <symbol id="icon-phone" viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8a13 13 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20a1 1 0 01-1 1C11 21 3 13 3 4.7a1 1 0 011-1H7.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1z" stroke="currentColor" stroke-width="1.8"/></symbol>
@@ -169,6 +171,85 @@
         </div>
         <p class="reel-caption">Een voorproefje van het soort korte, verticale video's dat we maken</p>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ videowand — echte klantvideo's, direct onder de hero ============
+       De clips zijn klein gehouden (360x640, 8 seconden) en laden pas als de strook in
+       beeld komt; assets/js/video-wall.js start en pauzeert ze per tegel. ============ -->
+  <section class="video-wall" aria-labelledby="wall-title">
+    <div class="container">
+      <div class="wall-head">
+        <h2 id="wall-title">Dit maakten we voor onze klanten</h2>
+        <p class="lede">Een greep uit het werk, van scooterspecialist tot schoonmaakbedrijf. De video&rsquo;s spelen vanzelf; tik erop voor geluid.</p>
+      </div>
+    </div>
+    <div class="wall-strip" tabindex="0" role="region" aria-label="Strook met klantvideo&rsquo;s, horizontaal scrollbaar">
+      <ul class="wall-track">
+        <li class="wall-item">
+          <video src="assets/video/wall-1.mp4" poster="assets/video/wall-1-poster.jpg"
+                 muted loop playsinline preload="none" tabindex="-1"
+                 aria-label="Video die we maakten voor een scooterspecialist"></video>
+          <span class="wall-label">Scooterspecialist</span>
+          <button type="button" class="wall-sound" aria-pressed="false">
+            <svg aria-hidden="true"><use href="#icon-sound-off"/></svg>
+            <span class="wall-sound-text">Geluid aan</span>
+          </button>
+        </li>
+        <li class="wall-item">
+          <video src="assets/video/wall-2.mp4" poster="assets/video/wall-2-poster.jpg"
+                 muted loop playsinline preload="none" tabindex="-1"
+                 aria-label="Video die we maakten voor een fietsenzaak"></video>
+          <span class="wall-label">Fietsenzaak</span>
+          <button type="button" class="wall-sound" aria-pressed="false">
+            <svg aria-hidden="true"><use href="#icon-sound-off"/></svg>
+            <span class="wall-sound-text">Geluid aan</span>
+          </button>
+        </li>
+        <li class="wall-item">
+          <video src="assets/video/wall-3.mp4" poster="assets/video/wall-3-poster.jpg"
+                 muted loop playsinline preload="none" tabindex="-1"
+                 aria-label="Video die we maakten voor een horeca"></video>
+          <span class="wall-label">Horeca</span>
+          <button type="button" class="wall-sound" aria-pressed="false">
+            <svg aria-hidden="true"><use href="#icon-sound-off"/></svg>
+            <span class="wall-sound-text">Geluid aan</span>
+          </button>
+        </li>
+        <li class="wall-item">
+          <video src="assets/video/wall-4.mp4" poster="assets/video/wall-4-poster.jpg"
+                 muted loop playsinline preload="none" tabindex="-1"
+                 aria-label="Video die we maakten voor een vendingmachines"></video>
+          <span class="wall-label">Vendingmachines</span>
+          <button type="button" class="wall-sound" aria-pressed="false">
+            <svg aria-hidden="true"><use href="#icon-sound-off"/></svg>
+            <span class="wall-sound-text">Geluid aan</span>
+          </button>
+        </li>
+        <li class="wall-item">
+          <video src="assets/video/wall-5.mp4" poster="assets/video/wall-5-poster.jpg"
+                 muted loop playsinline preload="none" tabindex="-1"
+                 aria-label="Video die we maakten voor een schoonmaakbedrijf"></video>
+          <span class="wall-label">Schoonmaakbedrijf</span>
+          <button type="button" class="wall-sound" aria-pressed="false">
+            <svg aria-hidden="true"><use href="#icon-sound-off"/></svg>
+            <span class="wall-sound-text">Geluid aan</span>
+          </button>
+        </li>
+        <li class="wall-item">
+          <video src="assets/video/wall-6.mp4" poster="assets/video/wall-6-poster.jpg"
+                 muted loop playsinline preload="none" tabindex="-1"
+                 aria-label="Video die we maakten voor een aanbieder van elektrisch vervoer"></video>
+          <span class="wall-label">Elektrisch vervoer</span>
+          <button type="button" class="wall-sound" aria-pressed="false">
+            <svg aria-hidden="true"><use href="#icon-sound-off"/></svg>
+            <span class="wall-sound-text">Geluid aan</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="container">
+      <p class="wall-foot"><a href="#cases">Bekijk de voorbeelden met geluid en resultaten</a></p>
     </div>
   </section>
 
@@ -685,6 +766,7 @@
 </footer>
 
 <script src="assets/js/site.js"></script>
+<script src="assets/js/video-wall.js" defer></script>
 <script src="assets/js/social-planner-rules.js"></script>
 <script src="assets/js/social-planner.js"></script>
 <script>
